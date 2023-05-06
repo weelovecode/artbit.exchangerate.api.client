@@ -8,11 +8,11 @@
     {
         readonly static string HttpClientName = nameof(ExchangeClient);
 
-        public static IServiceCollection RegisterExchangeRateApiClient(this IServiceCollection serviceCollection, string exchangeRateHostBaseUrl)
+        public static IServiceCollection RegisterExchangeRateApiClient(this IServiceCollection serviceCollection, string? exchangeRateHostBaseUrl)
         {
             if (string.IsNullOrEmpty(exchangeRateHostBaseUrl))
             {
-                throw new ArgumentNullException(nameof(exchangeRateHostBaseUrl), $"Url of {nameof(exchangeRateHostBaseUrl)} was not provided");
+                exchangeRateHostBaseUrl = "https://ex.artbit.one";
             }
 
             serviceCollection
