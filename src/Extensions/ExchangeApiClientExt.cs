@@ -8,12 +8,18 @@
     {
         readonly static string HttpClientName = nameof(ExchangeClient);
 
-        public static IServiceCollection RegisterExchangeRateApiClient(this IServiceCollection serviceCollection, string? exchangeRateHostBaseUrl)
+        /// <summary>
+        /// Register IExchangeApiClient implementation and dependencies
+        /// </summary>
+        public static IServiceCollection RegisterExchangeRateApiClient(this IServiceCollection serviceCollection, string? exchangeRateHostBaseUrl = null)
         {
             if (string.IsNullOrEmpty(exchangeRateHostBaseUrl))
             {
                 exchangeRateHostBaseUrl = "https://ex.artbit.one";
             }
+
+            serviceCollection
+                    .AddHttpClient();
 
             serviceCollection
                     .AddScoped<IExchangeApiClient, ExchangeClient>(_ => new ExchangeClient(exchangeRateHostBaseUrl, _.GetService<HttpClient>()));
